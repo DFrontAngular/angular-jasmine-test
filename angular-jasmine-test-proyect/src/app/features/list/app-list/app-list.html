@@ -1,0 +1,37 @@
+<div class="user-list-container">
+  <h2>Lista de Usuarios</h2>
+  <div class="actions">
+    <button (click)="loadUsers()" class="btn-primary">Cargar Usuarios</button>
+    <button (click)="loadSpecificUser(1)" class="btn-secondary">Cargar Usuario 1</button>
+  </div>
+  @if(loading){
+  <div class="loading">Cargando usuarios...</div>
+  } @if(error){
+  <div class="error">
+    Error: {{ error }}
+    <button (click)="clearError()" class="btn-close">×</button>
+  </div>
+  } @if(users.length > 0 && !loading){
+  <div class="users-grid">
+    @for (user of users; track user.id) {
+    <div class="user-card" [attr.data-testid]="'user-card-' + user.id">
+      <h3>{{ user.name }}</h3>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Username:</strong> {{ user.username }}</p>
+      <p><strong>Ciudad:</strong> {{ user.address.city }}</p>
+      <p><strong>Empresa:</strong> {{ user.company.name }}</p>
+
+      <div class="user-actions">
+        <button (click)="updateUser(user.id)" class="btn-edit">Editar</button>
+        <button (click)="deleteUser(user.id)" class="btn-delete">Eliminar</button>
+      </div>
+    </div>
+    }
+  </div>
+  }
+  @if(users.length === 0 && !loading && !error){
+  <div class="empty-state">
+    No hay usuarios para mostrar
+  </div>
+  }
+</div>

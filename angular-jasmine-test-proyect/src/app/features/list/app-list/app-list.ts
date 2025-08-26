@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { User, UserService } from '../../services/user';
+import { User, UserService } from '../../../core/services/user';
 
 @Component({
   selector: 'app-user-list',
@@ -23,7 +23,7 @@ export class UserListComponent implements OnInit {
     this.loadUsers();
   }
 
-  loadUsers() {
+  protected loadUsers() {
     this.loading = true;
     this.error = null;
     
@@ -40,7 +40,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  loadSpecificUser(id: number) {
+  protected loadSpecificUser(id: number) {
     this.loading = true;
     this.error = null;
     
@@ -57,7 +57,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  updateUser(id: number) {
+  protected updateUser(id: number) {
     const updateData = {
       name: `Usuario Actualizado ${id}`,
       email: `updated${id}@example.com`
@@ -76,7 +76,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  deleteUser(id: number) {
+  protected deleteUser(id: number) {
     if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
       this.userService.deleteUser(id).subscribe({
         next: () => {
@@ -89,7 +89,7 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  clearError() {
+  protected clearError() {
     this.error = null;
   }
 }
