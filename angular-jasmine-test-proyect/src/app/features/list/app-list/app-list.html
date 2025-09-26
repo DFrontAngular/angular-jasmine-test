@@ -2,9 +2,56 @@
   <h2>Lista de Usuarios</h2>
   <div class="actions">
     <button (click)="loadUsers()" class="btn-primary">Cargar Usuarios</button>
-    <button (click)="loadSpecificUser(1)" class="btn-secondary">Cargar Usuario 1</button>
+    <button (click)="newUser()" class="btn-primary">Nuevo Usuario</button>
   </div>
-  @if(loading){
+
+  @if(showForm()){
+  <form *ngIf="showForm()" [formGroup]="userForm" (ngSubmit)="submitUser()">
+    <div>
+      <label>Nombre</label>
+      <input formControlName="name" />
+      <div class="error" *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched">
+        El nombre es obligatorio y debe tener al menos 3 caracteres
+      </div>
+    </div>
+    <div>
+      <label>Email</label>
+      <input formControlName="email" />
+      <div class="error" *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+        Email inválido
+      </div>
+    </div>
+    <div>
+      <label>Username</label>
+      <input formControlName="username" />
+      <div
+        class="error"
+        *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched"
+      >
+        El username es obligatorio y debe tener al menos 3 caracteres
+      </div>
+    </div>
+    <div>
+      <label>Ciudad</label>
+      <input formControlName="city" />
+      <div class="error" *ngIf="userForm.get('city')?.invalid && userForm.get('city')?.touched">
+        Ciudad obligatoria
+      </div>
+    </div>
+    <div>
+      <label>Empresa</label>
+      <input formControlName="company" />
+      <div
+        class="error"
+        *ngIf="userForm.get('company')?.invalid && userForm.get('company')?.touched"
+      >
+        Empresa obligatoria
+      </div>
+    </div>
+    <button type="submit" [disabled]="userForm.invalid">Crear Usuario</button>
+  </form>
+
+  } @if(loading){
   <div class="loading">Cargando usuarios...</div>
   } @if(error){
   <div class="error">
@@ -28,10 +75,7 @@
     </div>
     }
   </div>
-  }
-  @if(users.length === 0 && !loading && !error){
-  <div class="empty-state">
-    No hay usuarios para mostrar
-  </div>
+  } @if(users.length === 0 && !loading && !error){
+  <div class="empty-state">No hay usuarios para mostrar</div>
   }
 </div>
