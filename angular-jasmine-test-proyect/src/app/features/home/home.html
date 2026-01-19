@@ -1,1 +1,124 @@
-<p>home works!</p>
+<section class="theory">
+  <header class="theory__header">
+    <h1>Bloque 1 · Introducción al testing en Angular</h1>
+    <p class="theory__subtitle">
+      Antes de escribir tests, es fundamental entender qué estamos haciendo y por qué.
+    </p>
+  </header>
+
+  <article class="theory__block">
+    <h2>¿Qué es un test?</h2>
+    <p>
+      Un test es una verificación automática que valida que una parte del sistema
+      se comporta como esperamos ante una situación concreta.
+    </p>
+
+    <p>
+      En Angular, los tests nos permiten asegurar que:
+    </p>
+
+    <ul>
+      <li>Los componentes renderizan correctamente</li>
+      <li>Las interacciones del usuario funcionan como esperamos</li>
+      <li>Los servicios procesan los datos correctamente</li>
+      <li>Los cambios futuros no rompen funcionalidades existentes</li>
+    </ul>
+  </article>
+
+  <article class="theory__block">
+    <h2>¿Qué NO es un test?</h2>
+
+    <ul>
+      <li>No es una prueba manual</li>
+      <li>No es ejecutar la aplicación y “ver si funciona”</li>
+      <li>No es comprobar implementaciones internas</li>
+      <li>No es testear Angular, es testear <strong>tu código</strong></li>
+    </ul>
+
+    <div class="theory__alert theory__alert--warning">
+      <strong>Importante:</strong> Un buen test no conoce detalles internos
+      del componente o servicio que está probando.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Tipos de tests</h2>
+
+    <h3>Tests unitarios</h3>
+    <p>
+      Verifican una unidad aislada de código (función, servicio, clase).
+      Son rápidos y fáciles de mantener.
+    </p>
+
+    <h3>Tests de integración</h3>
+    <p>
+      Verifican cómo interactúan varias piezas juntas.
+      En Angular, suelen ser tests de componentes con template, servicios y dependencias reales.
+    </p>
+
+    <h3>Tests end-to-end (E2E)</h3>
+    <p>
+      Simulan el comportamiento real del usuario en el navegador.
+      Son más lentos y se usan para validar flujos críticos.
+    </p>
+  </article>
+
+  <article class="theory__block">
+    <h2>La pirámide de testing</h2>
+
+    <p>
+      En Angular, la pirámide de testing suele verse así:
+    </p>
+
+    <ul>
+      <li>
+        <strong>Base:</strong> Tests unitarios (servicios, lógica pura)
+      </li>
+      <li>
+        <strong>Centro:</strong> Tests de integración (componentes)
+      </li>
+      <li>
+        <strong>Cima:</strong> Tests E2E (pocos y bien seleccionados)
+      </li>
+    </ul>
+
+    <div class="theory__alert theory__alert--info">
+      La mayoría del valor en Angular está en los tests de componentes,
+      no en testear getters, setters o métodos privados.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Herramientas de testing en Angular</h2>
+
+    <ul>
+      <li><strong>Karma</strong>: ejecuta los tests en el navegador</li>
+      <li><strong>Jasmine</strong>: framework de testing (describe, it, expect)</li>
+      <li><strong>TestBed</strong>: entorno de pruebas de Angular</li>
+    </ul>
+
+    <p>
+      Estas herramientas vienen configuradas por defecto en los proyectos Angular
+      y están pensadas para facilitar el testing desde el punto de vista del usuario.
+    </p>
+  </article>
+
+  <article class="theory__block">
+    <h2>Principio clave para esta formación</h2>
+
+    <div class="theory__alert theory__alert--success">
+      No vamos a testear implementaciones internas.<br />
+      Vamos a testear comportamiento observable.
+    </div>
+
+    <p>
+      A lo largo de la formación:
+    </p>
+
+    <ul>
+      <li>Priorizaremos tests de integración</li>
+      <li>Interactuaremos con el DOM, no con métodos privados</li>
+      <li>Usaremos selectores semánticos y <code>data-testid</code></li>
+    </ul>
+  </article>
+</section>

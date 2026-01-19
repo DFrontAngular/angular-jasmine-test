@@ -1,42 +1,25 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { User, UserService } from './user';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { createMockUsers } from '../../../testing/user.factory';
+import { User, UserService } from './user';
+
 
 describe('UserService', () => {
   let service: UserService;
   let httpMock: HttpTestingController;
 
   const mockUsers: User[] = [
-    {
-      id: 1,
-      name: 'Juan Pérez',
-      username: 'juanp',
-      email: 'juan@test.com',
-      address: {
-        street: 'Calle Falsa',
-        suite: 'Apt. 123',
-        city: 'Madrid',
-        zipcode: '28080',
-        geo: { lat: '0', lng: '0' }
-      },
-      phone: '123456789',
-      website: 'juan.com',
-      company: {
-        name: 'EmpresaX',
-        catchPhrase: 'Innovando siempre',
-        bs: 'tech'
-      }
-    }
+    createMockUsers()
   ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-      UserService,
-      provideHttpClient(withFetch()),
-      provideHttpClientTesting()
-    ]
+        UserService,
+        provideHttpClient(withFetch()),
+        provideHttpClientTesting()
+      ]
     });
     service = TestBed.inject(UserService);
     httpMock = TestBed.inject(HttpTestingController);

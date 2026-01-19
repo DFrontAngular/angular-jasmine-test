@@ -1,13 +1,27 @@
 import { Routes } from '@angular/router';
-import { Home } from './features/home/home';
-import { Form } from './features/form/form';
-import { PersonDetail } from './features/person-detail/person-detail';
-import { List } from './features/list/list';
 
 export const appRoutes: Routes = [
-  { path: '', component: Home },
-  { path: 'form', component: Form },
-  { path: 'list', component: List },
-  { path: 'person/:id', component: PersonDetail },
-  { path: '**', redirectTo: '' }
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'bloque-1'
+  },
+  {
+    path: 'bloque-1',
+    loadComponent: () =>
+      import('./features/home/home').then(
+        m => m.Home
+      )
+  },
+  {
+    path: 'bloque-2',
+    loadComponent: () =>
+      import('./features/block_2/block_2').then(
+        m => m.Block2
+      )
+  },
+  {
+    path: '**',
+    redirectTo: 'theory'
+  }
 ];

@@ -1,1 +1,22 @@
-<app-user-list></app-user-list>
+<header class="app-header">
+  <nav class="app-nav">
+    <a
+      routerLink="/bloque-1"
+      routerLinkActive="active"
+      aria-current="page"
+    >
+      Bloque 1 · Introducción
+    </a>
+    <a
+      routerLink="/bloque-2"
+      routerLinkActive="active"
+      aria-current="page"
+    >
+      Bloque 2 · Primer test en Angular
+    </a>
+  </nav>
+</header>
+
+<main class="app-content">
+  <router-outlet />
+</main>

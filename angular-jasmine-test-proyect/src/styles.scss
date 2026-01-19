@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+.app-header {
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+
+.app-nav {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  gap: 1rem;
+
+  a {
+    text-decoration: none;
+    color: #374151;
+    font-weight: 500;
+
+    &.active {
+      color: #4f46e5;
+    }
+  }
+}
+
+.app-content {
+  padding-top: 1rem;
+}
+
+.theory__code {
+  background-color: #0f172a;
+  color: #e5e7eb;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
+
+  code {
+    background-color: #0f172a!important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      'Liberation Mono', 'Courier New', monospace;
+  }
+}

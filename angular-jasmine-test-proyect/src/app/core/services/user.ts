@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -32,11 +32,12 @@ export interface User {
 })
 export class UserService {
   private readonly API_URL = 'https://jsonplaceholder.typicode.com';
+  readonly #http = inject(HttpClient)
 
-  constructor(private http: HttpClient) {}
+  constructor() { }
 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.API_URL}/users`)
+    return this.#http.get<User[]>(`${this.API_URL}/users`)
       .pipe(
         catchError(this.handleError)
       );
@@ -46,8 +47,8 @@ export class UserService {
     if (id <= 0) {
       return throwError(() => new Error('ID debe ser mayor que 0'));
     }
-    
-    return this.http.get<User>(`${this.API_URL}/users/${id}`)
+
+    return this.#http.get<User>(`${this.API_URL}/users/${id}`)
       .pipe(
         catchError(this.handleError)
       );
@@ -58,7 +59,7 @@ export class UserService {
       return throwError(() => new Error('Nombre y email son obligatorios'));
     }
 
-    return this.http.post<User>(`${this.API_URL}/users`, user)
+    return this.#http.post<User>(`${this.API_URL}/users`, user)
       .pipe(
         catchError(this.handleError)
       );
@@ -69,7 +70,7 @@ export class UserService {
       return throwError(() => new Error('ID debe ser mayor que 0'));
     }
 
-    return this.http.put<User>(`${this.API_URL}/users/${id}`, user)
+    return this.#http.put<User>(`${this.API_URL}/users/${id}`, user)
       .pipe(
         catchError(this.handleError)
       );
@@ -80,7 +81,7 @@ export class UserService {
       return throwError(() => new Error('ID debe ser mayor que 0'));
     }
 
-    return this.http.delete(`${this.API_URL}/users/${id}`)
+    return this.#http.delete(`${this.API_URL}/users/${id}`)
       .pipe(
         catchError(this.handleError)
       );
@@ -92,7 +93,7 @@ export class UserService {
     }
 
     return this.getAllUsers().pipe(
-      map(users => users.filter(user => 
+      map(users => users.filter(user =>
         user.name.toLowerCase().includes(name.toLowerCase())
       ))
     );

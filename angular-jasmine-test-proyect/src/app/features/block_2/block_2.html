@@ -1,0 +1,76 @@
+<section class="theory">
+  <header class="theory__header">
+    <h1>Bloque 2 · Primer test en Angular</h1>
+    <p class="theory__subtitle">
+      Antes de testear componentes, aprendemos los fundamentos del testing.
+    </p>
+  </header>
+
+  <article class="theory__block">
+    <h2>Ejemplo: clase pura sin Angular</h2>
+
+    <p>
+      Empezamos con una clase sin dependencias. No usa Angular, no usa servicios, no usa el DOM.
+    </p>
+
+    <pre class="theory__code" ngNonBindable>
+<code>
+export class DateUtils {{
+  static isPast(date: Date, now: number = Date.now()): boolean {
+    return date.getTime() &lt; now;
+  }
+}}
+</code>
+  </pre>
+
+    <p>Este tipo de código es ideal para aprender testing porque:</p>
+
+    <ul>
+      <li>No depende de Angular</li>
+      <li>No requiere TestBed</li>
+      <li>Produce resultados deterministas</li>
+    </ul>
+  </article>
+
+  <article class="theory__block">
+    <h2>Primer test con Jasmine</h2>
+
+    <p>
+      El test se estructura siempre en tres partes: preparar datos, ejecutar la acción y verificar
+      el resultado.
+    </p>
+
+    <pre class="theory__code" ngNonBindable>
+<code>
+describe('DateUtils', () =&gt; {{
+  it('should return true when date is before now', () =&gt; {
+    const now = new Date('2024-01-01').getTime();
+    const pastDate = new Date('2023-01-01');
+
+    const result = DateUtils.isPast(pastDate, now);
+
+    expect(result).toBeTrue();
+  });
+}});
+</code>
+  </pre>
+
+    <div class="theory__alert theory__alert--info">
+      Fíjate en que el test no conoce la implementación interna, solo el comportamiento esperado.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Qué buscamos en este bloque</h2>
+
+    <ul>
+      <li>Tests simples y legibles</li>
+      <li>Resultados deterministas</li>
+      <li>Que el test falle si el código falla</li>
+    </ul>
+
+    <div class="theory__alert theory__alert--success">
+      El objetivo no es cubrir código, es ganar confianza.
+    </div>
+  </article>
+</section>

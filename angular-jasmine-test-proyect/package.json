@@ -7,6 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:coverage": "ng test --code-coverage",
+    "test:coverage-watch": "ng test --code-coverage --watch",
     "serve:ssr:angular-jasmine-test-proyect": "node dist/angular-jasmine-test-proyect/server/server.mjs"
   },
   "prettier": {
