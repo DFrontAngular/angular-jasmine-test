@@ -1,0 +1,16 @@
+ <div class="task">
+      <span
+        data-testid="title"
+        [class.completed]="task.completed"
+      >
+        {{ task.title }}
+      </span>
+
+      <button
+        type="button"
+        data-testid="toggle"
+        (click)="toggle.emit(task.id)"
+      >
+        Toggle
+      </button>
+    </div>

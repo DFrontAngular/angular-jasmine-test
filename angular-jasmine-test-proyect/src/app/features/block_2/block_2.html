@@ -1,76 +1,91 @@
 <section class="theory">
   <header class="theory__header">
-    <h1>Bloque 2 · Primer test en Angular</h1>
+    <h1>Bloque 3 · Primer test de componente</h1>
     <p class="theory__subtitle">
-      Antes de testear componentes, aprendemos los fundamentos del testing.
+      En Angular, la mayor parte del valor está en testear componentes.
     </p>
   </header>
 
   <article class="theory__block">
-    <h2>Ejemplo: clase pura sin Angular</h2>
-
+    <h2>Qué estamos probando</h2>
     <p>
-      Empezamos con una clase sin dependencias. No usa Angular, no usa servicios, no usa el DOM.
+      Un componente standalone con:
     </p>
-
-    <pre class="theory__code" ngNonBindable>
-<code>
-export class DateUtils {{
-  static isPast(date: Date, now: number = Date.now()): boolean {
-    return date.getTime() &lt; now;
-  }
-}}
-</code>
-  </pre>
-
-    <p>Este tipo de código es ideal para aprender testing porque:</p>
-
     <ul>
-      <li>No depende de Angular</li>
-      <li>No requiere TestBed</li>
-      <li>Produce resultados deterministas</li>
+      <li>Un <strong>Input</strong></li>
+      <li>Un <strong>Output</strong></li>
+      <li>Interacción del usuario</li>
+      <li>Renderizado en el DOM</li>
     </ul>
   </article>
 
   <article class="theory__block">
-    <h2>Primer test con Jasmine</h2>
+    <h2>Qué NO estamos probando</h2>
+    <ul>
+      <li>Métodos privados</li>
+      <li>Implementación interna</li>
+      <li>Change detection manual</li>
+    </ul>
 
-    <p>
-      El test se estructura siempre en tres partes: preparar datos, ejecutar la acción y verificar
-      el resultado.
-    </p>
-
-    <pre class="theory__code" ngNonBindable>
-<code>
-describe('DateUtils', () =&gt; {{
-  it('should return true when date is before now', () =&gt; {
-    const now = new Date('2024-01-01').getTime();
-    const pastDate = new Date('2023-01-01');
-
-    const result = DateUtils.isPast(pastDate, now);
-
-    expect(result).toBeTrue();
-  });
-}});
-</code>
-  </pre>
-
-    <div class="theory__alert theory__alert--info">
-      Fíjate en que el test no conoce la implementación interna, solo el comportamiento esperado.
+    <div class="theory__alert theory__alert--warning">
+      Si un test necesita conocer detalles internos del componente,
+      probablemente esté mal planteado.
     </div>
   </article>
 
   <article class="theory__block">
-    <h2>Qué buscamos en este bloque</h2>
-
-    <ul>
-      <li>Tests simples y legibles</li>
-      <li>Resultados deterministas</li>
-      <li>Que el test falle si el código falla</li>
-    </ul>
+    <h2>Idea clave</h2>
 
     <div class="theory__alert theory__alert--success">
-      El objetivo no es cubrir código, es ganar confianza.
+      Un test de componente en Angular es un test de integración.
+    </div>
+
+    <p>
+      Probamos el comportamiento observable desde el punto de vista
+      del usuario.
+    </p>
+  </article>
+  <article class="theory__block">
+    <h2>El componente que vamos a testear</h2>
+
+    <p>
+      Antes de escribir tests, es importante entender
+      <strong>qué hace el componente</strong> y <strong>qué responsabilidad tiene</strong>.
+    </p>
+
+    <p><code>TaskItemComponent</code> es un componente de presentación:</p>
+
+    <ul>
+      <li>Recibe datos a través de un <strong>Input</strong></li>
+      <li>Renderiza información en el DOM</li>
+      <li>Emite eventos cuando el usuario interactúa</li>
+    </ul>
+
+    <div class="theory__alert theory__alert--info">
+      Este tipo de componente es ideal para aprender testing en Angular porque su comportamiento es
+      fácil de observar.
     </div>
   </article>
+
+  <article class="theory__block">
+    <h2>Implementación del componente</h2>
+
+    <p>
+      El componente está implementado como <strong>standalone</strong>, con detección de cambios
+      <strong>OnPush</strong>.
+    </p>
+
+    <pre class="theory__code">
+    <code>{{ taskItemCode }}</code>
+  </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Test del componente</h2>
+
+    <pre class="theory__code">
+    <code>{{ taskItemTestCode }}</code>
+  </pre>
+  </article>
+
 </section>

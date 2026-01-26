@@ -1,46 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Task, TaskItemComponent } from './task-item.component';
 
-@Component({
-  selector: 'app-block-2',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './block_2.html',
-  styleUrl: './block_2.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class Block2 {
-  readonly taskItemCode = `
-@Component({
-  selector: 'app-task-item',
-  standalone: true,
-  template: \`
-    <div class="task">
-      <span
-        data-testid="title"
-        [class.completed]="task.completed"
-      >
-        {{ task.title }}
-      </span>
-
-      <button
-        type="button"
-        data-testid="toggle"
-        (click)="toggle.emit(task.id)"
-      >
-        Toggle
-      </button>
-    </div>
-  \`,
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class TaskItemComponent {
-  @Input({ required: true }) task!: Task;
-  @Output() toggle = new EventEmitter<number>();
-}
-`;
-
-  readonly taskItemTestCode = `
 describe('TaskItemComponent', () => {
   let fixture: ComponentFixture<TaskItemComponent>;
   let component: TaskItemComponent;
@@ -84,5 +44,3 @@ describe('TaskItemComponent', () => {
     expect(component.toggle.emit).toHaveBeenCalledWith(mockTask.id);
   });
 });
-`;
-}

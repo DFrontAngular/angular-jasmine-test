@@ -4,13 +4,20 @@ export const appRoutes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'bloque-1'
+    redirectTo: 'home'
+  },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./features/home/home').then(
+        m => m.Home
+      )
   },
   {
     path: 'bloque-1',
     loadComponent: () =>
-      import('./features/home/home').then(
-        m => m.Home
+      import('./features/block_1/block_1').then(
+        m => m.Block1
       )
   },
   {
