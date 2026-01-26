@@ -1,0 +1,7 @@
+<ul>
+  @for (task of tasks; track task.id) {
+    <li data-testid="task">
+      {{ task.title }}
+    </li>
+  }
+</ul>

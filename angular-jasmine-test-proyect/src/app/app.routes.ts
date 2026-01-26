@@ -28,6 +28,13 @@ export const appRoutes: Routes = [
       )
   },
   {
+    path: 'bloque-3',
+    loadComponent: () =>
+      import('./features/block_3/block_3').then(
+        m => m.Block3
+      )
+  },
+  {
     path: '**',
     redirectTo: 'theory'
   }

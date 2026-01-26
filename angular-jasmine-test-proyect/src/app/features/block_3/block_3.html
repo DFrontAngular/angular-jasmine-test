@@ -1,0 +1,95 @@
+<section class="theory">
+  <header class="theory__header">
+    <h1>Bloque 4 · Componente, servicio y HTTP</h1>
+    <p class="theory__subtitle">
+      En este bloque probamos flujos reales de datos en Angular.
+    </p>
+  </header>
+
+  <article class="theory__block">
+    <h2>Qué estamos probando</h2>
+    <ul>
+      <li>Un servicio que usa HttpClient</li>
+      <li>Un componente que consume ese servicio</li>
+      <li>Renderizado del resultado en el DOM</li>
+    </ul>
+  </article>
+
+  <article class="theory__block">
+    <h2>Qué herramienta usamos</h2>
+    <ul>
+      <li><code>HttpClientTestingModule</code></li>
+      <li><code>HttpTestingController</code></li>
+    </ul>
+
+    <div class="theory__alert theory__alert--info">
+      No se hacen llamadas HTTP reales durante los tests.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Idea clave</h2>
+
+    <div class="theory__alert theory__alert--success">
+      Un test de componente en Angular puede cubrir
+      varias capas del sistema de forma controlada.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Servicio que accede a la API</h2>
+
+    <p>
+      El servicio encapsula el acceso a datos y depende de
+      <code>HttpClient</code>.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ taskServiceCode }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Test del servicio</h2>
+
+    <p>
+      En el test usamos <code>HttpTestingController</code> para
+      interceptar la llamada HTTP.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ taskServiceTestCode }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Componente que consume el servicio</h2>
+
+    <p>
+      El componente obtiene los datos en <code>ngOnInit</code>
+      y los renderiza en el DOM.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ taskListComponentCode }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Test de integración del componente</h2>
+
+    <p>
+      Este test cubre servicio, HTTP y renderizado de UI
+      en un solo flujo controlado.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ taskListTestCode }}</code>
+    </pre>
+
+    <div class="theory__alert theory__alert--success">
+      Este es un test de integración típico en Angular.
+    </div>
+  </article>
+</section>
+
