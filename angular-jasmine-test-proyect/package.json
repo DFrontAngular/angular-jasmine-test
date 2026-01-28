@@ -8,7 +8,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:coverage": "ng test --code-coverage",
-    "test:coverage-watch": "ng test --code-coverage --watch"
+    "test:coverage-watch": "ng test --code-coverage --watch",
+    "lint": "ng lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "prettier": {
     "printWidth": 100,
@@ -40,12 +43,17 @@
     "@angular/compiler-cli": "^20.3.16",
     "@types/jasmine": "~5.1.15",
     "@types/node": "^20.19.30",
+    "angular-eslint": "21.0.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
     "jasmine-core": "~5.13.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.2.0",
-    "typescript": "~5.8.3"
+    "prettier": "^3.8.1",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "8.46.4"
   }
 }
