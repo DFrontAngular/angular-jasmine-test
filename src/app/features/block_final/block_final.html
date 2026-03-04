@@ -1,0 +1,105 @@
+<section class="theory">
+  <header class="theory__header">
+    <h1>Bloque Final · Estrategia de Testing en Angular</h1>
+    <p class="theory__subtitle">
+      En este bloque cerramos la formación aprendiendo
+      <strong>qué testear y qué no testear</strong> para escribir tests útiles y mantenibles.
+    </p>
+  </header>
+
+  <article class="theory__block">
+    <h2>La pirámide de testing</h2>
+
+    <pre class="theory__code">
+<code>{{ testingPyramid }}</code>
+    </pre>
+
+    <div class="theory__alert theory__alert--info">
+      La mayor parte del valor está en los
+      <strong>tests de integración desde la UI</strong>.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Qué SÍ testear</h2>
+
+    <h3>Componentes que renderizan datos</h3>
+
+    <pre class="theory__code">
+<code>{{ taskListSpec }}</code>
+    </pre>
+
+    <div class="theory__alert theory__alert--success">
+      Validamos el resultado visible, no la implementación interna.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h3>Routing y navegación</h3>
+
+    <pre class="theory__code">
+<code>{{ routingSpec }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h3>Guards</h3>
+
+    <pre class="theory__code">
+<code>{{ guardSpec }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h3>Servicios con lógica</h3>
+
+    <pre class="theory__code">
+<code>{{ serviceSpec }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Qué NO testear</h2>
+
+    <pre class="theory__code">
+<code>{{ whatNotToTest }}</code>
+    </pre>
+
+    <div class="theory__alert theory__alert--warning">
+      No todo necesita test: evita tests frágiles o sin valor real.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Selectores de test</h2>
+
+    <pre class="theory__code">
+<code>{{ testSelectors }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Async testing y OnPush</h2>
+
+    <pre class="theory__code">
+<code>{{ asyncTesting }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>HttpClient en tests</h2>
+
+    <pre class="theory__code">
+<code>{{ httpTesting }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Regla final</h2>
+
+    <div class="theory__alert theory__alert--success">
+      <p><strong>Testea comportamientos, no estructuras.</strong></p>
+      <p><strong>Testea lo que importa al usuario, no al framework.</strong></p>
+    </div>
+  </article>
+</section>

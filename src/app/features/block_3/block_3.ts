@@ -16,8 +16,7 @@ export class Block3 {
 })
 export class TaskService {
   private readonly apiUrl = '/api/tasks';
-
-  constructor(private readonly http: HttpClient) {}
+  private readonly http = inject(HttpClient);
 
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(this.apiUrl);
@@ -59,7 +58,7 @@ describe('TaskService', () => {
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
 
-  constructor(private readonly taskService: TaskService) {}
+  private readonly taskService = inject(TaskService);
 
   ngOnInit(): void {
     this.taskService.getTasks().subscribe(tasks => {

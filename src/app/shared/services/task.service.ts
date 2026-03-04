@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 export interface Task {
@@ -13,8 +13,7 @@ export interface Task {
 })
 export class TaskService {
   private readonly apiUrl = '/api/tasks';
-
-  constructor(private readonly http: HttpClient) {}
+  private readonly http = inject(HttpClient);
 
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(this.apiUrl);

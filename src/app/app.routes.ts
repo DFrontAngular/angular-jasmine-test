@@ -35,6 +35,42 @@ export const appRoutes: Routes = [
       )
   },
   {
+    path: 'bloque-4',
+    loadComponent: () =>
+      import('./features/block_4/block_4').then(
+        m => m.block_4
+      )
+  },
+  {
+    path: 'bloque-5',
+    loadComponent: () =>
+      import('./features/block_5/block_5').then(
+        m => m.block_5
+      )
+  },
+  {
+    path: 'bloque-6',
+    loadComponent: () =>
+      import('./features/block_6/block_6').then(
+        m => m.block_6
+      )
+  },
+  {
+    path: 'bloque-7',
+    loadComponent: () =>
+      import('./features/block_7/block_7').then(
+        m => m.block_7
+      )
+  },
+   {
+    path: 'bloque-final',
+    // canActivate: [adminGuard],
+    loadComponent: () =>
+      import('./features/block_final/block_final').then(
+        m => m.block_final
+      )
+  },
+  {
     path: '**',
     redirectTo: 'theory'
   }

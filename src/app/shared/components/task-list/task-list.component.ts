@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
+    inject,
     OnInit
 } from '@angular/core';
 import { Task, TaskService } from '../../services/task.service';
@@ -16,8 +17,7 @@ import { Task, TaskService } from '../../services/task.service';
 export class TaskListComponent implements OnInit {
     tasks: Task[] = [];
 
-    constructor(private readonly taskService: TaskService) { }
-
+    private readonly taskService = inject(TaskService);
     ngOnInit(): void {
         this.taskService.getTasks().subscribe(tasks => {
             this.tasks = tasks;

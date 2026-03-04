@@ -1,0 +1,96 @@
+<section class="theory">
+  <header class="theory__header">
+    <h1>Bloque 7 · Coverage y complejidad condicional</h1>
+    <p class="theory__subtitle">
+      Cómo demasiados if afectan directamente a tu cobertura y a la calidad del diseño.
+    </p>
+  </header>
+
+  <article class="theory__block">
+    <h2>¿Qué mide realmente el Coverage?</h2>
+
+    <pre class="theory__code">
+<code>{{ coverageConcept }}</code>
+    </pre>
+
+    <p>
+      El problema real suele estar en <strong>Branches</strong>. Cada if crea al menos dos caminos
+      posibles.
+    </p>
+
+    <div class="theory__alert theory__alert--info">Más if → Más ramas → Más tests necesarios.</div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Ejemplo con alta complejidad condicional</h2>
+
+    <pre class="theory__code">
+<code>{{ badExampleCode }}</code>
+    </pre>
+
+    <p>Aquí tenemos múltiples ramas anidadas. Cada combinación requiere un test diferente.</p>
+
+    <pre class="theory__code">
+<code>{{ manyTestsExample }}</code>
+    </pre>
+
+    <div class="theory__alert theory__alert--danger">
+      Si no cubres todas las combinaciones, el coverage de branches baja drásticamente.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Impacto real en Branch Coverage</h2>
+
+    <p>Un if simple genera 2 ramas. Un if dentro de otro genera combinaciones.</p>
+
+    <p>El número de caminos crece exponencialmente.</p>
+
+    <div class="theory__alert theory__alert--info">
+      Más complejidad ciclomática → Más tests → Más deuda técnica.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Refactor usando Record y simplificación</h2>
+
+    <pre class="theory__code">
+<code>{{ refactoredExample }}</code>
+    </pre>
+
+    <p>Eliminamos múltiples if y reducimos ramas. Ahora solo hay una condición especial.</p>
+
+    <div class="theory__alert theory__alert--success">
+      Menos ramas → Menos tests → Mejor mantenibilidad.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Extraer lógica a función pura</h2>
+
+    <pre class="theory__code">
+<code>{{ pureFunctionExample }}</code>
+    </pre>
+
+    <p>Ahora podemos testear sin TestBed, sin Angular, sin renderizar componente.</p>
+
+    <div class="theory__alert theory__alert--success">
+      Las funciones puras reducen la complejidad de testing.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Conclusión</h2>
+
+    <ul>
+      <li>El coverage no es solo porcentaje.</li>
+      <li>La complejidad ciclomática impacta directamente.</li>
+      <li>Muchos if indican posible problema de diseño.</li>
+      <li>Refactorizar mejora arquitectura y testing.</li>
+    </ul>
+
+    <div class="theory__alert theory__alert--info">
+      Código fácil de testear suele ser código bien diseñado.
+    </div>
+  </article>
+</section>

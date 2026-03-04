@@ -1,0 +1,73 @@
+<section class="theory">
+  <header class="theory__header">
+    <h1>Bloque 5 · Métodos privados en TypeScript</h1>
+    <p class="theory__subtitle">
+      Qué ocurre al testear métodos private y #private.
+    </p>
+  </header>
+
+  <article class="theory__block">
+    <h2>Diferencia entre private y #private</h2>
+
+    <p>
+      En TypeScript, <code>private</code> solo existe en tiempo de compilación.
+      En runtime el método sigue existiendo.
+    </p>
+
+    <p>
+      Sin embargo, <code>#private</code> es privado real de JavaScript
+      y no puede accederse desde fuera de la clase.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ componentCode }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Test incorrecto: espiar método private</h2>
+
+    <p>
+      Podemos “engañar” al compilador usando <code>as any</code>,
+      pero esto rompe el tipado estricto.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ wrongTestCode }}</code>
+    </pre>
+
+    <div class="theory__alert theory__alert--danger">
+      Testear métodos privados acopla el test a la implementación interna.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Métodos #private reales</h2>
+
+    <p>
+      Los métodos declarados con <code>#</code> no pueden ser accedidos
+      ni siquiera usando <code>any</code>.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ hashPrivateTestCode }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Forma correcta de testear</h2>
+
+    <p>
+      No testeamos implementación interna.
+      Testeamos comportamiento observable.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ correctTestCode }}</code>
+    </pre>
+
+    <div class="theory__alert theory__alert--success">
+      Los tests deben validar el resultado, no cómo se consigue.
+    </div>
+  </article>
+</section>

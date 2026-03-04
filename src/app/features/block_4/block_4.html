@@ -1,0 +1,126 @@
+<section class="theory">
+  <header class="theory__header">
+    <h1>Bloque 4 · Routing y Guards</h1>
+    <p class="theory__subtitle">
+      Control de acceso real con HTTP, guards funcionales y testing moderno.
+    </p>
+  </header>
+
+  <article class="theory__block">
+    <h2>Guard funcional con lógica asíncrona</h2>
+
+    <p>
+      En Angular moderno los guards pueden ser funciones que usan
+      <strong>inject()</strong> directamente.  
+      En este caso validamos el rol del usuario realizando
+      una petición HTTP a <code>/api/me</code>.
+    </p>
+
+    <p>
+      El guard devuelve un <strong>Observable&lt;GuardResult&gt;</strong>,
+      que puede ser <code>true</code> o un <code>UrlTree</code> de redirección.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ guardCode }}</code>
+    </pre>
+
+    <div class="theory__alert theory__alert--info">
+      Un guard funcional debe ejecutarse dentro de un contexto de inyección,
+      ya que utiliza inject().
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Testing del guard con HTTP mockeado</h2>
+
+    <p>
+      Como el guard realiza una petición HTTP, necesitamos
+      <strong>HttpTestingController</strong> para interceptarla.
+    </p>
+
+    <p>
+      En lugar de usar <code>subscribe()</code> y <code>done()</code>,
+      convertimos el Observable en Promise usando
+      <code>firstValueFrom</code> y trabajamos con <code>async/await</code>.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ guardTestCode }}</code>
+    </pre>
+
+    <div class="theory__alert theory__alert--success">
+      Siempre que se use HttpTestingController es obligatorio hacer flush()
+      o error() para evitar tests colgados.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Ejecución en contexto de inyección</h2>
+
+    <p>
+      Los guards funcionales que utilizan inject() deben ejecutarse
+      dentro de <code>TestBed.runInInjectionContext()</code>.
+    </p>
+
+    <p>
+      Esto garantiza que Angular pueda resolver correctamente
+      las dependencias como HttpClient o Router.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ injectionContextExample }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Configuración de rutas standalone</h2>
+
+    <p>
+      Las rutas se configuran usando <code>provideRouter</code>
+      y componentes standalone.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ routesCode }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Test de navegación real</h2>
+
+    <p>
+      Para probar navegación no testeamos el Router internamente.
+      Utilizamos <strong>RouterTestingHarness</strong> y verificamos
+      lo que realmente se renderiza.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ routingTestCode }}</code>
+    </pre>
+
+    <div class="theory__alert theory__alert--success">
+      Los tests de routing deben validar comportamiento observable
+      en el DOM, no implementación interna del router.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Buenas prácticas aplicadas</h2>
+
+    <ul>
+      <li>✔ Guards funcionales en lugar de clases</li>
+      <li>✔ Uso de inject() en vez de constructor</li>
+      <li>✔ HTTP completamente mockeado</li>
+      <li>✔ Sin any en tests (strict mode)</li>
+      <li>✔ Sin done() ni subscribe() manual</li>
+      <li>✔ Uso de async/await + firstValueFrom</li>
+      <li>✔ Verificación de peticiones con httpMock.verify()</li>
+    </ul>
+
+    <div class="theory__alert theory__alert--info">
+      El objetivo no es solo que el guard funcione,
+      sino que sea testeable, mantenible y tipado estrictamente.
+    </div>
+  </article>
+</section>

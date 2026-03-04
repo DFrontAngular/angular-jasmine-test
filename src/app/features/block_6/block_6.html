@@ -1,0 +1,186 @@
+<section class="theory">
+  <header class="theory__header">
+    <h1>Bloque 6 · Configuración de Karma</h1>
+    <p class="theory__subtitle">Entendiendo cómo se ejecutan realmente nuestros tests.</p>
+  </header>
+
+  <article class="theory__block">
+    <h2>¿Qué es Karma?</h2>
+
+    <p>
+      Karma es el test runner que ejecuta nuestros tests en un navegador real. Angular CLI lo
+      configura automáticamente, pero entender su configuración nos permite controlar mejor el
+      entorno de ejecución.
+    </p>
+  </article>
+
+  <article class="theory__block">
+    <h2>Estructura base del karma.conf.js</h2>
+
+    <p>
+      El archivo <code>karma.conf.js</code> define cómo se ejecutan los tests: frameworks,
+      navegadores, reporters y comportamiento.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ baseConfigCode }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Frameworks</h2>
+
+    <p>Define qué motor de testing utilizamos. En Angular normalmente usamos Jasmine.</p>
+
+    <pre class="theory__code">
+<code>{{ frameworksCode }}</code>
+    </pre>
+
+    <div class="theory__alert theory__alert--info">
+      @angular-devkit/build-angular integra Karma con el CLI.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Reporters</h2>
+
+    <p>Los reporters determinan cómo se muestran los resultados de los tests.</p>
+
+    <pre class="theory__code">
+<code>{{ reportersCode }}</code>
+    </pre>
+
+    <p>El reporter <code>coverage</code> genera métricas de cobertura de código.</p>
+  </article>
+
+  <article class="theory__block">
+    <h2>Coverage</h2>
+
+    <p>
+      Permite generar informes HTML y resumen en consola. Es clave para medir calidad del testing.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ coverageCode }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Navegadores</h2>
+
+    <p>Define dónde se ejecutan los tests. En CI se recomienda usar ChromeHeadless.</p>
+
+    <pre class="theory__code">
+<code>{{ browsersCode }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Entorno Headless</h2>
+
+    <p>
+      Un entorno <strong>headless</strong> ejecuta el navegador sin interfaz gráfica. Es fundamental
+      en entornos CI/CD donde no existe entorno visual.
+    </p>
+
+    <p>
+      ChromeHeadless es más rápido, más estable y reduce problemas relacionados con renderizado
+      gráfico.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ headlessCode }}</code>
+  </pre>
+
+    <div class="theory__alert theory__alert--success">
+      En CI siempre usar ChromeHeadless para evitar errores de entorno gráfico y mayor estabilidad.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Configuraciones útiles</h2>
+
+    <p>Algunas configuraciones ayudan a evitar tests intermitentes y mejorar la estabilidad.</p>
+
+    <pre class="theory__code">
+<code>{{ usefulConfigCode }}</code>
+    </pre>
+
+    <ul>
+      <li><strong>random: false</strong> → Evita orden aleatorio en tests.</li>
+      <li><strong>timeoutInterval</strong> → Aumenta el tiempo máximo.</li>
+      <li><strong>logLevel</strong> → Reduce ruido en consola.</li>
+      <li><strong>clearContext: false</strong> → Mantiene resultados visibles en navegador.</li>
+    </ul>
+  </article>
+
+  <article class="theory__block">
+    <h2>Reporters LCOV y SonarQube</h2>
+
+    <p>
+      LCOV es el formato estándar que muchas herramientas de análisis estático utilizan para leer
+      cobertura de código.
+    </p>
+
+    <p>
+      SonarQube solo interpreta cobertura en formato LCOV, por eso debemos habilitar el reporter
+      correspondiente.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ lcovCode }}</code>
+  </pre>
+
+    <ul>
+      <li><strong>lcov</strong> → Genera archivo + integración visual</li>
+      <li><strong>lcovonly</strong> → Solo genera archivo .info sin HTML</li>
+    </ul>
+
+    <div class="theory__alert theory__alert--info">
+      SonarQube busca el archivo lcov.info para calcular métricas.
+    </div>
+    <p>
+      SonarQube no ejecuta los tests. Solo analiza los archivos generados. El archivo
+      <code>lcov.info</code> contiene:
+    </p>
+
+    <ul>
+      <li>Líneas cubiertas</li>
+      <li>Funciones cubiertas</li>
+      <li>Branches cubiertos</li>
+      <li>Porcentaje global</li>
+    </ul>
+  </article>
+
+  <article class="theory__block">
+    <h2>Ignorar archivos en cobertura</h2>
+
+    <p>
+      No todos los archivos deben contarse para cobertura. Podemos excluir archivos técnicos o de
+      configuración.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ coverageIgnoreCode }}</code>
+  </pre>
+
+    <div class="theory__alert theory__alert--danger">
+      Excluir archivos debe hacerse con criterio, nunca para "maquillar" métricas.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Buenas prácticas</h2>
+
+    <ul>
+      <li>✔ Usar ChromeHeadless en CI</li>
+      <li>✔ Activar coverage en pipelines</li>
+      <li>✔ No desactivar random sin motivo</li>
+      <li>✔ Ajustar timeouts solo si es necesario</li>
+    </ul>
+
+    <div class="theory__alert theory__alert--info">
+      Karma controla el entorno de ejecución, pero la calidad depende del diseño de los tests.
+    </div>
+  </article>
+</section>
