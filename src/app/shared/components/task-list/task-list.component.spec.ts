@@ -4,7 +4,6 @@ import { TaskService } from '../../services/task.service';
 import { TaskListComponent } from './task-list.component';
 
 describe('TaskListComponent', () => {
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TaskListComponent],
@@ -15,24 +14,29 @@ describe('TaskListComponent', () => {
             getTasks: () =>
               of([
                 { id: 1, title: 'Task one', completed: false },
-                { id: 2, title: 'Task two', completed: true }
-              ])
-          }
-        }
-      ]
+                { id: 2, title: 'Task two', completed: true },
+              ]),
+          },
+        },
+      ],
     }).compileComponents();
   });
 
-  it('should render tasks from API', () => {
-    const fixture = TestBed.createComponent(TaskListComponent);
+  describe('getTask', () => {
+    it('should render tasks from API', () => {
+      const fixture = TestBed.createComponent(TaskListComponent);
 
-    fixture.detectChanges(); // ngOnInit + subscribe
+      fixture.detectChanges(); // ngOnInit + subscribe
 
-    const items = fixture.nativeElement.querySelectorAll(
-      '[data-testid="task"]'
-    );
+      const items = fixture.nativeElement.querySelectorAll('[data-testid="task"]');
 
-    expect(items.length).toBe(2);
-    expect(items[0].textContent).toContain('Task one');
+      expect(items.length).toBe(2);
+      expect(items[0].textContent).toContain('Task one');
+    });
+
+    // TODO: crear test handle error
+    it('should handle error tasks ', () => {
+      expect(true).toBeTrue();
+    });
   });
 });

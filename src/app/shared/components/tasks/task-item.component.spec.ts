@@ -8,12 +8,12 @@ describe('TaskItemComponent', () => {
   const mockTask: Task = {
     id: 1,
     title: 'Learn Angular Testing',
-    completed: false
+    completed: false,
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskItemComponent]
+      imports: [TaskItemComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TaskItemComponent);
@@ -24,8 +24,7 @@ describe('TaskItemComponent', () => {
     fixture.componentRef.setInput('task', mockTask);
     fixture.detectChanges();
 
-    const titleElement: HTMLElement =
-      fixture.nativeElement.querySelector('[data-testid="title"]');
+    const titleElement: HTMLElement = fixture.nativeElement.querySelector('[data-testid="title"]');
 
     expect(titleElement.textContent).toContain(mockTask.title);
   });
@@ -36,8 +35,7 @@ describe('TaskItemComponent', () => {
 
     spyOn(component.toggle, 'emit');
 
-    const button: HTMLButtonElement =
-      fixture.nativeElement.querySelector('[data-testid="toggle"]');
+    const button: HTMLButtonElement = fixture.nativeElement.querySelector('[data-testid="toggle"]');
 
     button.click();
 
