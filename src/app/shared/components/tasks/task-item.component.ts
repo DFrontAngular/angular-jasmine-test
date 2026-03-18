@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
 export interface Task {
   id: number;
@@ -13,8 +13,6 @@ export interface Task {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskItemComponent {
-  @Input({ required: true }) task!: Task;
-  @Output() toggle = new EventEmitter<number>();
-
-  test() {}
+  readonly task = input.required<Task>();
+  readonly changeTask = output<number>();
 }

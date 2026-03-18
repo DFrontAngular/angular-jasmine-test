@@ -2,56 +2,54 @@
   <header class="theory__header">
     <h1>Bloque 4 · Routing y Guards</h1>
     <p class="theory__subtitle">
-      Control de acceso real con HTTP, guards funcionales y testing moderno.
+      Guards funcionales, estado de autenticación compartido y testing moderno.
     </p>
   </header>
 
   <article class="theory__block">
-    <h2>Guard funcional con lógica asíncrona</h2>
+    <h2>Guard funcional basado en estado</h2>
 
     <p>
       En Angular moderno los guards pueden ser funciones que usan
-      <strong>inject()</strong> directamente.  
-      En este caso validamos el rol del usuario realizando
-      una petición HTTP a <code>/api/me</code>.
+      <strong>inject()</strong> directamente. En este caso el guard no llama a ningún
+      endpoint: consume un observable con el estado de sesión ya resuelto.
     </p>
 
     <p>
-      El guard devuelve un <strong>Observable&lt;GuardResult&gt;</strong>,
-      que puede ser <code>true</code> o un <code>UrlTree</code> de redirección.
+      El guard devuelve un <strong>Observable&lt;GuardResult&gt;</strong>, que puede ser
+      <code>true</code> o un <code>UrlTree</code> de redirección. Con
+      <code>take(1)</code> nos quedamos con el valor actual de <code>isLogged$</code>
+      y evitamos suscripciones abiertas.
     </p>
 
-    <pre class="theory__code">
-<code>{{ guardCode }}</code>
-    </pre>
+    <pre class="theory__code"><code>{{ guardCode }}</code></pre>
 
     <div class="theory__alert theory__alert--info">
-      Un guard funcional debe ejecutarse dentro de un contexto de inyección,
-      ya que utiliza inject().
+      Un guard funcional debe ejecutarse dentro de un contexto de inyección, ya que
+      utiliza inject().
     </div>
   </article>
 
   <article class="theory__block">
-    <h2>Testing del guard con HTTP mockeado</h2>
+    <h2>Testing del guard sin HTTP</h2>
 
     <p>
-      Como el guard realiza una petición HTTP, necesitamos
-      <strong>HttpTestingController</strong> para interceptarla.
+      Como el guard no realiza peticiones, el test no necesita
+      <strong>HttpTestingController</strong>. Lo importante ahora es mockear la fuente
+      de estado que consume.
     </p>
 
     <p>
-      En lugar de usar <code>subscribe()</code> y <code>done()</code>,
-      convertimos el Observable en Promise usando
-      <code>firstValueFrom</code> y trabajamos con <code>async/await</code>.
+      En este ejemplo usamos un <code>BehaviorSubject&lt;boolean&gt;</code> para
+      controlar el valor emitido por <code>isLogged$</code>. Así comprobamos de forma
+      determinista si el guard permite o redirige.
     </p>
 
-    <pre class="theory__code">
-<code>{{ guardTestCode }}</code>
-    </pre>
+    <pre class="theory__code"><code>{{ guardTestCode }}</code></pre>
 
     <div class="theory__alert theory__alert--success">
-      Siempre que se use HttpTestingController es obligatorio hacer flush()
-      o error() para evitar tests colgados.
+      Si el guard depende de estado ya cargado, el test debe centrarse en esa
+      decisión y no en detalles de transporte o acceso a datos.
     </div>
   </article>
 
@@ -59,49 +57,50 @@
     <h2>Ejecución en contexto de inyección</h2>
 
     <p>
-      Los guards funcionales que utilizan inject() deben ejecutarse
-      dentro de <code>TestBed.runInInjectionContext()</code>.
+      Los guards funcionales que utilizan inject() deben ejecutarse dentro de
+      <code>TestBed.runInInjectionContext()</code>.
     </p>
 
     <p>
-      Esto garantiza que Angular pueda resolver correctamente
-      las dependencias como HttpClient o Router.
+      El contexto de inyección es el entorno temporal que Angular crea para que
+      <code>inject()</code> sepa de dónde obtener dependencias como servicios,
+      router o tokens. Si ejecutamos la función fuera de ese contexto, Angular
+      no puede resolver esas dependencias.
     </p>
 
-    <pre class="theory__code">
-<code>{{ injectionContextExample }}</code>
-    </pre>
+    <p>
+      Esto garantiza que Angular pueda resolver correctamente dependencias como
+      <code>AuthStateService</code> o <code>Router</code>.
+    </p>
+
+    <pre class="theory__code"><code>{{ injectionContextExample }}</code></pre>
   </article>
 
   <article class="theory__block">
     <h2>Configuración de rutas standalone</h2>
 
     <p>
-      Las rutas se configuran usando <code>provideRouter</code>
-      y componentes standalone.
+      Las rutas se configuran usando <code>provideRouter</code> y componentes
+      standalone.
     </p>
 
-    <pre class="theory__code">
-<code>{{ routesCode }}</code>
-    </pre>
+    <pre class="theory__code"><code>{{ routesCode }}</code></pre>
   </article>
 
   <article class="theory__block">
     <h2>Test de navegación real</h2>
 
     <p>
-      Para probar navegación no testeamos el Router internamente.
-      Utilizamos <strong>RouterTestingHarness</strong> y verificamos
-      lo que realmente se renderiza.
+      Para probar navegación no testeamos el Router internamente. Utilizamos
+      <strong>RouterTestingHarness</strong> y verificamos lo que realmente se
+      renderiza.
     </p>
 
-    <pre class="theory__code">
-<code>{{ routingTestCode }}</code>
-    </pre>
+    <pre class="theory__code"><code>{{ routingTestCode }}</code></pre>
 
     <div class="theory__alert theory__alert--success">
-      Los tests de routing deben validar comportamiento observable
-      en el DOM, no implementación interna del router.
+      Los tests de routing deben validar comportamiento observable en el DOM, no
+      implementación interna del router.
     </div>
   </article>
 
@@ -111,16 +110,17 @@
     <ul>
       <li>✔ Guards funcionales en lugar de clases</li>
       <li>✔ Uso de inject() en vez de constructor</li>
-      <li>✔ HTTP completamente mockeado</li>
+      <li>✔ El guard no hace peticiones HTTP</li>
+      <li>✔ El estado de autenticación se reutiliza desde un servicio</li>
       <li>✔ Sin any en tests (strict mode)</li>
       <li>✔ Sin done() ni subscribe() manual</li>
       <li>✔ Uso de async/await + firstValueFrom</li>
-      <li>✔ Verificación de peticiones con httpMock.verify()</li>
+      <li>✔ Tests centrados en comportamiento, no en implementación de red</li>
     </ul>
 
     <div class="theory__alert theory__alert--info">
-      El objetivo no es solo que el guard funcione,
-      sino que sea testeable, mantenible y tipado estrictamente.
+      El objetivo no es solo que el guard funcione, sino que sea testeable,
+      mantenible y tipado estrictamente.
     </div>
   </article>
 </section>

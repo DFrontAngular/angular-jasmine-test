@@ -81,6 +81,17 @@
   <article class="theory__block">
     <h2>Async testing y OnPush</h2>
 
+    <p>
+      <code>whenStable()</code> espera a que Angular termine el trabajo asíncrono pendiente
+      del test, por ejemplo promesas, tareas programadas o actualizaciones que todavía no se
+      han reflejado en la vista.
+    </p>
+
+    <p>
+      Se usa antes de comprobar el DOM cuando necesitamos dar tiempo a Angular para estabilizar
+      el componente y dejar el estado final listo para el assert.
+    </p>
+
     <pre class="theory__code">
 <code>{{ asyncTesting }}</code>
     </pre>

@@ -10,60 +10,38 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class block_4 {
-
   readonly guardCode = `
 import { inject } from '@angular/core';
-import {
-  CanActivateFn,
-  Router,
-  GuardResult
-} from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { Observable, map, catchError, of } from 'rxjs';
-
-interface User {
-  id: number;
-  name: string;
-  role: 'admin' | 'user';
-}
+import { CanActivateFn, GuardResult, Router } from '@angular/router';
+import { map, Observable, take } from 'rxjs';
+import { AuthStateService } from '../services/auth-state.service';
 
 export const adminGuard: CanActivateFn = (): Observable<GuardResult> => {
-  const http = inject(HttpClient);
+  const authStateService = inject(AuthStateService);
   const router = inject(Router);
 
-  return http.get<User>('/api/me').pipe(
-    map(user =>
-      user.role === 'admin'
-        ? true
-        : router.createUrlTree(['/'])
-    ),
-    catchError(() =>
-      of(router.createUrlTree(['/']))
-    )
+  return authStateService.isLogged$.pipe(
+    take(1),
+    map((isLogged) => (isLogged ? true : router.createUrlTree(['/'])))
   );
 };
 `;
 
   readonly guardTestCode = `
+import { TestBed } from '@angular/core/testing';
 import {
   ActivatedRouteSnapshot,
-  RouterStateSnapshot,
   GuardResult,
-  provideRouter
+  provideRouter,
+  Router,
+  RouterStateSnapshot,
+  UrlTree
 } from '@angular/router';
-import {
-  provideHttpClient
-} from '@angular/common/http';
-import {
-  provideHttpClientTesting,
-  HttpTestingController
-} from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
-import { firstValueFrom, Observable } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
+import { AuthStateService } from '../services/auth-state.service';
+import { adminGuard } from './admin.guard';
 
 describe('adminGuard', () => {
-  let httpMock: HttpTestingController;
-
   function createRouteSnapshot(): ActivatedRouteSnapshot {
     return new ActivatedRouteSnapshot();
   }
@@ -74,39 +52,38 @@ describe('adminGuard', () => {
     } as RouterStateSnapshot;
   }
 
+  let router: Router;
+  let isLoggedSubject: BehaviorSubject<boolean>;
+
   beforeEach(() => {
+    isLoggedSubject = new BehaviorSubject<boolean>(false);
+
     TestBed.configureTestingModule({
       providers: [
         provideRouter([]),
-        provideHttpClient(),
-        provideHttpClientTesting()
+        {
+          provide: AuthStateService,
+          useValue: {
+            isLogged$: isLoggedSubject.asObservable()
+          }
+        }
       ]
     });
 
-    httpMock = TestBed.inject(HttpTestingController);
+    router = TestBed.inject(Router);
   });
 
-  afterEach(() => {
-    httpMock.verify();
-  });
-
-  it('should allow admin user', async () => {
+  it('should allow logged user', async () => {
     const route = createRouteSnapshot();
     const state = createStateSnapshot();
+
+    isLoggedSubject.next(true);
 
     const resultPromise = TestBed.runInInjectionContext(async () => {
       const guardResult =
         adminGuard(route, state) as Observable<GuardResult>;
 
       return firstValueFrom(guardResult);
-    });
-
-    const req = httpMock.expectOne('/api/me');
-
-    req.flush({
-      id: 1,
-      name: 'John',
-      role: 'admin'
     });
 
     const result = await resultPromise;
@@ -114,7 +91,7 @@ describe('adminGuard', () => {
     expect(result).toBeTrue();
   });
 
-  it('should redirect if user is not admin', async () => {
+  it('should redirect if user is not logged', async () => {
     const route = createRouteSnapshot();
     const state = createStateSnapshot();
 
@@ -125,37 +102,12 @@ describe('adminGuard', () => {
       return firstValueFrom(guardResult);
     });
 
-    const req = httpMock.expectOne('/api/me');
-
-    req.flush({
-      id: 2,
-      name: 'Jane',
-      role: 'user'
-    });
-
     const result = await resultPromise;
+    const expectedUrlTree = router.createUrlTree(['/']);
 
-    expect(result.toString()).toContain('/');
-  });
-
-  it('should redirect on error', async () => {
-    const route = createRouteSnapshot();
-    const state = createStateSnapshot();
-
-    const resultPromise = TestBed.runInInjectionContext(async () => {
-      const guardResult =
-        adminGuard(route, state) as Observable<GuardResult>;
-
-      return firstValueFrom(guardResult);
-    });
-
-    const req = httpMock.expectOne('/api/me');
-
-    req.error(new ErrorEvent('Network error'));
-
-    const result = await resultPromise;
-
-    expect(result.toString()).toContain('/');
+    expect(result instanceof UrlTree).toBeTrue();
+    expect(router.serializeUrl(result as UrlTree))
+      .toEqual(router.serializeUrl(expectedUrlTree));
   });
 });
 `;
@@ -214,6 +166,8 @@ it('should execute guard inside injection context', async () => {
   const state: RouterStateSnapshot = {
     url: '/admin'
   } as RouterStateSnapshot;
+
+  isLoggedSubject.next(true);
 
   const result = await TestBed.runInInjectionContext(async () => {
     const guardResult =

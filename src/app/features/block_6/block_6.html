@@ -15,6 +15,42 @@
   </article>
 
   <article class="theory__block">
+    <h2>Karma en angular.json</h2>
+
+    <p>
+      Karma se referencia en <code>angular.json</code> porque Angular CLI necesita saber qué
+      builder debe usar al ejecutar los tests y qué archivo de configuración debe cargar.
+    </p>
+
+    <p>
+      Cuando lanzamos <code>ng test</code>, el CLI lee esta sección para conectar el comando
+      con <code>@angular/build:karma</code> y con el archivo <code>karma.conf.js</code>.
+    </p>
+
+    <pre class="theory__code">
+<code>{{ angularJsonKarmaCode }}</code>
+    </pre>
+  </article>
+
+  <article class="theory__block">
+    <h2>Comando para añadir karma.conf</h2>
+
+    <p>
+      Si el proyecto no tiene todavía el archivo de configuración de Karma, Angular CLI puede
+      generarlo con este comando:
+    </p>
+
+    <pre class="theory__code">
+<code>{{ karmaGenerateCommandCode }}</code>
+    </pre>
+
+    <p>
+      Si prefieres lanzarlo desde npm, normalmente se usaría como
+      <code>npm exec ng generate config karma</code>.
+    </p>
+  </article>
+
+  <article class="theory__block">
     <h2>Estructura base del karma.conf.js</h2>
 
     <p>

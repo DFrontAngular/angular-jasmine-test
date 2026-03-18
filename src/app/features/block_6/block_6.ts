@@ -10,6 +10,18 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class block_6 {
+  readonly angularJsonKarmaCode = `
+"test": {
+  "builder": "@angular/build:karma",
+  "options": {
+    "karmaConfig": "karma.conf.js"
+  }
+}
+`;
+
+  readonly karmaGenerateCommandCode = `
+ng generate config karma
+`;
 
   readonly baseConfigCode = `
 module.exports = function (config) {

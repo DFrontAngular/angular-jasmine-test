@@ -18,15 +18,15 @@ export class Block2 {
     <div class="task">
       <span
         data-testid="title"
-        [class.completed]="task.completed"
+        [class.completed]="task().completed"
       >
-        {{ task.title }}
+        {{ task().title }}
       </span>
 
       <button
         type="button"
-        data-testid="toggle"
-        (click)="toggle.emit(task.id)"
+        data-testid="changeTask"
+        (click)="changeTask.emit(task().id)"
       >
         Toggle
       </button>
@@ -35,8 +35,8 @@ export class Block2 {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskItemComponent {
-  @Input({ required: true }) task!: Task;
-  @Output() toggle = new EventEmitter<number>();
+  readonly task = input.required<Task>();
+  readonly changeTask = output<number>();
 }
 `;
 
@@ -70,18 +70,18 @@ describe('TaskItemComponent', () => {
     expect(titleElement.textContent).toContain(mockTask.title);
   });
 
-  it('should emit toggle event when button is clicked', () => {
+  it('should emit changeTask event when button is clicked', () => {
     fixture.componentRef.setInput('task', mockTask);
     fixture.detectChanges();
 
-    spyOn(component.toggle, 'emit');
+    spyOn(component.changeTask, 'emit');
 
     const button: HTMLButtonElement =
-      fixture.nativeElement.querySelector('[data-testid="toggle"]');
+      fixture.nativeElement.querySelector('[data-testid="changeTask"]');
 
     button.click();
 
-    expect(component.toggle.emit).toHaveBeenCalledWith(mockTask.id);
+    expect(component.changeTask.emit).toHaveBeenCalledWith(mockTask.id);
   });
 });
 `;

@@ -21,12 +21,10 @@ describe('TaskService', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  // TODO: Revisar un test que se quede colgado si no pones verify
   afterEach(() => {
     httpMock.verify();
   });
 
-  // FIXME: Revisar, da falso positivo
   it('should fetch tasks from API', () => {
     service.getTasks().subscribe((tasks) => {
       expect(tasks).toEqual(mockTasks);
@@ -48,5 +46,26 @@ describe('TaskService', () => {
 
     const req = httpMock.expectOne('/api/tasks');
     req.flush('Server error', { status: 500, statusText: 'Server Error' });
+  });
+
+  xit('would hang if the request is never resolved', (done: DoneFn) => {
+    service.getTasks().subscribe({
+      next: () => {
+        done.fail('the request should remain pending in this example');
+      },
+      error: () => {
+        done.fail('the request should remain pending in this example');
+      },
+      complete: () => {
+        done.fail('the request should remain pending in this example');
+      },
+    });
+
+    const req = httpMock.expectOne('/api/tasks');
+    expect(req.request.method).toBe('GET');
+
+    // Si no hacemos req.flush(...) ni req.error(...),
+    // el observable no emite y done() nunca se ejecuta.
+    // Este ejemplo se deja deshabilitado para no colgar la suite.
   });
 });

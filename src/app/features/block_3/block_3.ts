@@ -26,6 +26,10 @@ export class TaskService {
 
   readonly taskServiceTestCode = `
 describe('TaskService', () => {
+  afterEach(() => {
+    httpMock.verify();
+  });
+
   it('should fetch tasks from API', () => {
     service.getTasks().subscribe(tasks => {
       expect(tasks).toEqual(mockTasks);
@@ -35,6 +39,16 @@ describe('TaskService', () => {
     expect(req.request.method).toBe('GET');
 
     req.flush(mockTasks);
+  });
+
+  xit('would hang if the request is never resolved', (done: DoneFn) => {
+    service.getTasks().subscribe(() => {
+      done();
+    });
+
+    httpMock.expectOne('/api/tasks');
+
+    // Sin flush() ni error(), done() nunca se ejecuta.
   });
 });
 `;

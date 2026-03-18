@@ -88,4 +88,54 @@
   </pre>
   </article>
 
+  <article class="theory__block">
+    <h2>Conceptos clave del test</h2>
+
+    <ul>
+      <li><code>beforeEach</code>: prepara el entorno antes de cada test para que todos empiecen desde el mismo estado.</li>
+      <li><code>imports</code>: registra en el TestBed los componentes standalone o dependencias que el test necesita.</li>
+      <li><code>fixture</code>: es el envoltorio de pruebas del componente; permite acceder al DOM, lanzar detección de cambios y configurar inputs.</li>
+      <li><code>component</code>: es la instancia TypeScript del componente creada dentro del fixture.</li>
+      <li><code>detectChanges()</code>: ejecuta la detección de cambios para que Angular procese inputs, bindings y actualice el DOM antes de hacer asserts.</li>
+      <li><code>afterEach</code>: sirve para limpiar o verificar cosas al terminar cada test, por ejemplo spies, timers o peticiones pendientes.</li>
+      <li><code>spyOn</code>: crea un espía sobre un método o función para comprobar si se llamó y con qué argumentos.</li>
+    </ul>
+
+    <p>
+      También se pueden anidar <code>describe</code> para organizar la suite en grupos,
+      por ejemplo separando tests de renderizado, eventos o validaciones del mismo componente.
+    </p>
+
+    <div class="theory__alert theory__alert--info">
+      La idea es sencilla: <code>beforeEach</code> prepara, el <code>fixture</code> nos deja interactuar,
+      <code>detectChanges()</code> actualiza la vista, <code>spyOn</code> observa y
+      <code>afterEach</code> ayuda a cerrar el test de forma segura.
+    </div>
+  </article>
+
+  <article class="theory__block">
+    <h2>Input signal</h2>
+
+    <p>
+      Si cambiamos <code>@Input() task</code> por <code>input.required&lt;Task&gt;()</code>,
+      el dato de entrada pasa a ser un signal de solo lectura.
+    </p>
+
+    <p>
+      La consecuencia principal es que en la plantilla ya no accedemos como
+      <code>task.title</code>, sino como <code>task().title</code>, porque necesitamos leer
+      el valor actual del signal.
+    </p>
+
+    <p>
+      En los tests podemos seguir usando <code>fixture.componentRef.setInput('task', valor)</code>.
+      Angular actualiza el input signal internamente y, despu&eacute;s de
+      <code>detectChanges()</code>, el DOM refleja el nuevo valor.
+    </p>
+
+    <div class="theory__alert theory__alert--info">
+      El cambio importante no es c&oacute;mo se inyecta el dato en el test, sino c&oacute;mo se lee en el
+      componente: ahora el input es reactivo y se consume como signal.
+    </div>
+  </article>
 </section>

@@ -1,9 +1,7 @@
 <section class="theory">
   <header class="theory__header">
     <h1>Bloque 3 · Componente, servicio y HTTP</h1>
-    <p class="theory__subtitle">
-      En este bloque probamos flujos reales de datos en Angular.
-    </p>
+    <p class="theory__subtitle">En este bloque probamos flujos reales de datos en Angular.</p>
   </header>
 
   <article class="theory__block">
@@ -31,8 +29,7 @@
     <h2>Idea clave</h2>
 
     <div class="theory__alert theory__alert--success">
-      Un test de componente en Angular puede cubrir
-      varias capas del sistema de forma controlada.
+      Un test de componente en Angular puede cubrir varias capas del sistema de forma controlada.
     </div>
   </article>
 
@@ -52,11 +49,21 @@
   <article class="theory__block">
     <h2>Test del servicio</h2>
 
+    <p>En el test usamos <code>HttpTestingController</code> para interceptar la llamada HTTP.</p>
+
     <p>
-      En el test usamos <code>HttpTestingController</code> para
-      interceptar la llamada HTTP.
+      <code>httpMock.verify()</code> se usa al final de cada test para comprobar que no
+      quedan peticiones pendientes. Es una red de seguridad útil para evitar tests que
+      aparentan pasar dejando trabajo HTTP sin resolver.
     </p>
 
+    <p>
+      Si además el test espera un <code>done()</code> o una emisión que nunca llega
+      porque no hacemos <code>flush()</code> ni <code>error()</code>, el test puede
+      quedarse colgado hasta agotar el timeout.
+    </p>
+    <p><code>flush()</code> es un método que simula el paso del tiempo instantáneamente, ejecutando todas las tareas (macrotareas y microtareas) pendientes en la cola de tareas.
+    </p>
     <pre class="theory__code">
 <code>{{ taskServiceTestCode }}</code>
     </pre>
@@ -78,18 +85,33 @@
   <article class="theory__block">
     <h2>Test de integración del componente</h2>
 
-    <p>
-      Este test cubre servicio, HTTP y renderizado de UI
-      en un solo flujo controlado.
-    </p>
+    <p>Este test cubre servicio, HTTP y renderizado de UI en un solo flujo controlado.</p>
 
     <pre class="theory__code">
-<code>{{ taskListTestCode }}</code>
+      <code>{{ taskListTestCode }}</code>
     </pre>
 
     <div class="theory__alert theory__alert--success">
       Este es un test de integración típico en Angular.
     </div>
   </article>
-</section>
+  <article class="theory__block">
+    <h2>¿Qué es <code>useValue</code>?</h2>
 
+    <p>
+      <code>useValue</code> permite sustituir una dependencia real por una implementación falsa
+      (mock) dentro del sistema de inyección de Angular.
+    </p>
+
+    <p>
+      En lugar de usar el <code>TaskService</code> real (que haría llamadas HTTP), proporcionamos un
+      objeto manual con el mismo método: <code>getTasks()</code>.
+    </p>
+
+    <ul>
+      <li><code>provide</code>: indica qué dependencia queremos reemplazar</li>
+      <li><code>useValue</code>: define el objeto falso que Angular usará en su lugar</li>
+      <li><code>of(...)</code>: crea un Observable síncrono para simular la respuesta</li>
+    </ul>
+  </article>
+</section>
