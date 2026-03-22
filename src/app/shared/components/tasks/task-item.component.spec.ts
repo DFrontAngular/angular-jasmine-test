@@ -34,10 +34,20 @@ describe('TaskItemComponent', () => {
     fixture.detectChanges();
 
     spyOn(component.changeTask, 'emit');
-
     const button: HTMLButtonElement = fixture.nativeElement.querySelector('[data-testid="changeTask"]');
 
     button.click();
+
+    expect(component.changeTask.emit).toHaveBeenCalledWith(mockTask.id);
+  });
+
+  it('should emit changeTask event with task id', () => {
+    fixture.componentRef.setInput('task', mockTask);
+    fixture.detectChanges();
+
+    spyOn(component.changeTask, 'emit');
+
+    component.changeTask.emit(mockTask.id);
 
     expect(component.changeTask.emit).toHaveBeenCalledWith(mockTask.id);
   });

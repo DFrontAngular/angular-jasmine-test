@@ -10,7 +10,7 @@
     <h2>Guard funcional basado en estado</h2>
 
     <p>
-      En Angular moderno los guards pueden ser funciones que usan
+      En Angular los guards pueden ser funciones que usan
       <strong>inject()</strong> directamente. En este caso el guard no llama a ningún
       endpoint: consume un observable con el estado de sesión ya resuelto.
     </p>
@@ -25,7 +25,7 @@
     <pre class="theory__code"><code>{{ guardCode }}</code></pre>
 
     <div class="theory__alert theory__alert--info">
-      Un guard funcional debe ejecutarse dentro de un contexto de inyección, ya que
+      Un guard funcional debe ejecutarse dentro de un <b>contexto de inyección</b>, ya que
       utiliza inject().
     </div>
   </article>
@@ -77,17 +77,6 @@
   </article>
 
   <article class="theory__block">
-    <h2>Configuración de rutas standalone</h2>
-
-    <p>
-      Las rutas se configuran usando <code>provideRouter</code> y componentes
-      standalone.
-    </p>
-
-    <pre class="theory__code"><code>{{ routesCode }}</code></pre>
-  </article>
-
-  <article class="theory__block">
     <h2>Test de navegación real</h2>
 
     <p>
@@ -108,10 +97,6 @@
     <h2>Buenas prácticas aplicadas</h2>
 
     <ul>
-      <li>✔ Guards funcionales en lugar de clases</li>
-      <li>✔ Uso de inject() en vez de constructor</li>
-      <li>✔ El guard no hace peticiones HTTP</li>
-      <li>✔ El estado de autenticación se reutiliza desde un servicio</li>
       <li>✔ Sin any en tests (strict mode)</li>
       <li>✔ Sin done() ni subscribe() manual</li>
       <li>✔ Uso de async/await + firstValueFrom</li>

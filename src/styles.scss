@@ -14,7 +14,7 @@ body{
   margin: 0 auto;
   padding: 1rem 1.5rem;
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
 
   a {
     text-decoration: none;
@@ -23,6 +23,7 @@ body{
 
     &.active {
       color: #4f46e5;
+      font-weight: 600;
     }
   }
 }
@@ -123,6 +124,10 @@ body{
     &--success {
       background-color: #ecfdf5;
       border-left: 4px solid #10b981;
+    }
+    &--danger {
+      background-color: #fdefec;
+      border-left: 4px solid #b91310;
     }
   }
 }

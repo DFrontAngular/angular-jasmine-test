@@ -62,8 +62,7 @@
     </ul>
 
     <div class="theory__alert theory__alert--info">
-      Este tipo de componente es ideal para aprender testing en Angular porque su comportamiento es
-      fácil de observar.
+      Este componente es fácil de observar.
     </div>
   </article>
 
@@ -110,32 +109,6 @@
       La idea es sencilla: <code>beforeEach</code> prepara, el <code>fixture</code> nos deja interactuar,
       <code>detectChanges()</code> actualiza la vista, <code>spyOn</code> observa y
       <code>afterEach</code> ayuda a cerrar el test de forma segura.
-    </div>
-  </article>
-
-  <article class="theory__block">
-    <h2>Input signal</h2>
-
-    <p>
-      Si cambiamos <code>@Input() task</code> por <code>input.required&lt;Task&gt;()</code>,
-      el dato de entrada pasa a ser un signal de solo lectura.
-    </p>
-
-    <p>
-      La consecuencia principal es que en la plantilla ya no accedemos como
-      <code>task.title</code>, sino como <code>task().title</code>, porque necesitamos leer
-      el valor actual del signal.
-    </p>
-
-    <p>
-      En los tests podemos seguir usando <code>fixture.componentRef.setInput('task', valor)</code>.
-      Angular actualiza el input signal internamente y, despu&eacute;s de
-      <code>detectChanges()</code>, el DOM refleja el nuevo valor.
-    </p>
-
-    <div class="theory__alert theory__alert--info">
-      El cambio importante no es c&oacute;mo se inyecta el dato en el test, sino c&oacute;mo se lee en el
-      componente: ahora el input es reactivo y se consume como signal.
     </div>
   </article>
 </section>

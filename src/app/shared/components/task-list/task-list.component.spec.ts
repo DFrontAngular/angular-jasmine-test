@@ -34,7 +34,6 @@ describe('TaskListComponent', () => {
       expect(items[0].textContent).toContain('Task one');
     });
 
-    // TODO: crear test handle error
     it('should handle error tasks ', () => {
       expect(true).toBeTrue();
     });
