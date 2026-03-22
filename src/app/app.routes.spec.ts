@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
+
 import { appRoutes } from './app.routes';
 
 describe('App routing', () => {
-
   let router: Router;
 
   beforeEach(async () => {
@@ -35,7 +35,7 @@ describe('App routing', () => {
     expect(router.url).toBe('/home');
   });
 
-    it('should navigate to bloque-1', async () => {
+  it('should navigate to bloque-1', async () => {
     const harness = await RouterTestingHarness.create();
 
     await harness.navigateByUrl('/bloque-1');
@@ -59,7 +59,7 @@ describe('App routing', () => {
     expect(router.url).toBe('/bloque-3');
   });
 
-    it('should navigate to bloque-4', async () => {
+  it('should navigate to bloque-4', async () => {
     const harness = await RouterTestingHarness.create();
 
     await harness.navigateByUrl('/bloque-4');
@@ -91,7 +91,6 @@ describe('App routing', () => {
     expect(router.url).toBe('/bloque-7');
   });
 
-
   it('should navigate to bloque-final', async () => {
     const harness = await RouterTestingHarness.create();
 
@@ -100,4 +99,11 @@ describe('App routing', () => {
     expect(router.url).toBe('/bloque-final');
   });
 
+  it('should redirect unknown routes to /home', async () => {
+    const harness = await RouterTestingHarness.create();
+
+    await harness.navigateByUrl('/ruta-inexistente');
+
+    expect(router.url).toBe('/home');
+  });
 });

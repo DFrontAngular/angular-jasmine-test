@@ -1,116 +1,76 @@
-<section class="theory">
-  <header class="theory__header">
-    <h1>Bloque Final · Estrategia de Testing en Angular</h1>
+<section class="theory conclusion">
+  <header class="theory__header conclusion__header">
+    <p class="conclusion__eyebrow" data-testid="final-eyebrow">
+      Cierre de la formación
+    </p>
+    <h1 data-testid="final-title">Conclusión · Qué merece un test en Angular</h1>
     <p class="theory__subtitle">
-      En este bloque cerramos la formación aprendiendo
-      <strong>qué testear y qué no testear</strong> para escribir tests útiles y mantenibles.
+      Terminamos con una idea simple: los mejores tests no persiguen detalles internos,
+      sino que protegen comportamientos que importan al usuario y al negocio.
     </p>
   </header>
 
   <article class="theory__block">
-    <h2>La pirámide de testing</h2>
+    <h2 data-testid="summary-title">Qué deberías llevarte de esta formación</h2>
 
-    <pre class="theory__code">
-<code>{{ testingPyramid }}</code>
-    </pre>
+    <ul data-testid="summary-list">
+      @for (point of summaryPoints; track point) {
+        <li>{{ point }}</li>
+      }
+    </ul>
 
     <div class="theory__alert theory__alert--info">
-      La mayor parte del valor está en los
-      <strong>tests de integración desde la UI</strong>.
+      El objetivo no es tener más tests, sino tener tests que detecten regresiones con valor real.
     </div>
   </article>
 
   <article class="theory__block">
-    <h2>Qué SÍ testear</h2>
+    <h2>Decisiones prácticas para empezar bien</h2>
 
-    <h3>Componentes que renderizan datos</h3>
-
-    <pre class="theory__code">
-<code>{{ taskListSpec }}</code>
-    </pre>
-
-    <div class="theory__alert theory__alert--success">
-      Validamos el resultado visible, no la implementación interna.
+    <div class="conclusion__grid" data-testid="practical-decisions">
+      @for (decision of practicalDecisions; track decision.title) {
+        <article class="conclusion__card">
+          <h3>{{ decision.title }}</h3>
+          <p>{{ decision.description }}</p>
+        </article>
+      }
     </div>
   </article>
 
   <article class="theory__block">
-    <h3>Routing y navegación</h3>
+    <h2>Errores que conviene evitar</h2>
 
-    <pre class="theory__code">
-<code>{{ routingSpec }}</code>
-    </pre>
-  </article>
-
-  <article class="theory__block">
-    <h3>Guards</h3>
-
-    <pre class="theory__code">
-<code>{{ guardSpec }}</code>
-    </pre>
-  </article>
-
-  <article class="theory__block">
-    <h3>Servicios con lógica</h3>
-
-    <pre class="theory__code">
-<code>{{ serviceSpec }}</code>
-    </pre>
-  </article>
-
-  <article class="theory__block">
-    <h2>Qué NO testear</h2>
-
-    <pre class="theory__code">
-<code>{{ whatNotToTest }}</code>
-    </pre>
+    <ul data-testid="anti-patterns-list">
+      @for (antiPattern of antiPatterns; track antiPattern) {
+        <li>{{ antiPattern }}</li>
+      }
+    </ul>
 
     <div class="theory__alert theory__alert--warning">
-      No todo necesita test: evita tests frágiles o sin valor real.
+      Si el test depende de la estructura exacta del DOM o de una implementación privada,
+      probablemente fallará por el motivo equivocado.
     </div>
   </article>
 
   <article class="theory__block">
-    <h2>Selectores de test</h2>
+    <h2 data-testid="checklist-title">Checklist final antes de dar un test por bueno</h2>
 
-    <pre class="theory__code">
-<code>{{ testSelectors }}</code>
-    </pre>
-  </article>
-
-  <article class="theory__block">
-    <h2>Async testing y OnPush</h2>
-
-    <p>
-      <code>whenStable()</code> espera a que Angular termine el trabajo asíncrono pendiente
-      del test, por ejemplo promesas, tareas programadas o actualizaciones que todavía no se
-      han reflejado en la vista.
-    </p>
-
-    <p>
-      Se usa antes de comprobar el DOM cuando necesitamos dar tiempo a Angular para estabilizar
-      el componente y dejar el estado final listo para el assert.
-    </p>
-
-    <pre class="theory__code">
-<code>{{ asyncTesting }}</code>
-    </pre>
-  </article>
-
-  <article class="theory__block">
-    <h2>HttpClient en tests</h2>
-
-    <pre class="theory__code">
-<code>{{ httpTesting }}</code>
-    </pre>
+    <ol class="conclusion__checklist" data-testid="final-checklist">
+      @for (check of finalChecklist; track check) {
+        <li>{{ check }}</li>
+      }
+    </ol>
   </article>
 
   <article class="theory__block">
     <h2>Regla final</h2>
 
-    <div class="theory__alert theory__alert--success">
-      <p><strong>Testea comportamientos, no estructuras.</strong></p>
-      <p><strong>Testea lo que importa al usuario, no al framework.</strong></p>
+    <div class="theory__alert theory__alert--success" data-testid="final-rule">
+      <p><strong>{{ finalRule }}</strong></p>
+      <p>
+        Cuando tengas dudas, vuelve al flujo del usuario y prueba lo que rompería su experiencia.
+      </p>
     </div>
   </article>
+
 </section>

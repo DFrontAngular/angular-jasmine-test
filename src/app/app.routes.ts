@@ -62,16 +62,16 @@ export const appRoutes: Routes = [
         m => m.block_7
       )
   },
-   {
+  {
     path: 'bloque-final',
     // canActivate: [adminGuard],
     loadComponent: () =>
       import('./features/block_final/block_final').then(
-        m => m.block_final
+        m => m.BlockFinal
       )
   },
   {
     path: '**',
-    redirectTo: 'theory'
+    redirectTo: 'home'
   }
 ];
